@@ -2,20 +2,21 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/gorilla/mux"
 	"fmt"
 	"io"
-	"os"
 	"net/http"
+	"os"
+
 	"github.com/badoux/goscraper"
 	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
 )
 
 type Preview struct {
-    Url   	  string   `json:"url"`
-    Title         string   `json:"title"`
-    Description   string   `json:"description"`
-    Images      []string   `json:"images"`
+	Url         string   `json:"url"`
+	Title       string   `json:"title"`
+	Description string   `json:"description"`
+	Image       []string `json:"image"`
 }
 
 func getUrlData(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +35,7 @@ func getUrlData(w http.ResponseWriter, r *http.Request) {
 	pvw.Url = s.Preview.Link
 	pvw.Title = s.Preview.Title
 	pvw.Description = s.Preview.Description
-	pvw.Images = s.Preview.Images
+	pvw.Image = s.Preview.Images
 
 	json.NewEncoder(w).Encode(pvw)
 
